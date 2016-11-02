@@ -1,4 +1,4 @@
-PRODUCT_BRAND ?= crdroidandroid
+PRODUCT_BRAND ?= uos
 
 PRODUCT_BOOTANIMATION := vendor/cm/prebuilt/common/bootanimation/bootanimation.zip
 
@@ -236,56 +236,17 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.root_access=0
 
-DEVICE_PACKAGE_OVERLAYS += vendor/cm/overlay/common
-
 # Don't compile SystemUITests
 EXCLUDE_SYSTEMUI_TESTS := true
-
-# Adaway
-PRODUCT_COPY_FILES += \
-    vendor/cm/prebuilt/Adaway/Adaway.apk:system/app/Adaway/Adaway.apk
-
-# Custom crDroid packages
-PRODUCT_PACKAGES += \
-    OmniSwitch
-
-#DU Utils Library
-PRODUCT_PACKAGES += \
-    org.dirtyunicorns.utils
- 
-PRODUCT_BOOT_JARS += \
-    org.dirtyunicorns.utils
-
-# crDroid Maintainers list
-PRODUCT_COPY_FILES += \
-    vendor/cm/Maintainers.txt:system/etc/Maintainers.txt
-
-# Product version should match Android version
-PRODUCT_VERSION_MAJOR = 7
-PRODUCT_VERSION_MINOR = 1
-
-# Increase CR Version with each major release.
-CR_VERSION := 1.0
-
-
-CM_VERSION := crDroidAndroid-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(shell date -u +%Y%m%d)-$(CM_BUILD)
-CM_DISPLAY_VERSION := crDroidAndroid-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(shell date -u +%Y%m%d)-v$(CR_VERSION)
-
-PRODUCT_PROPERTY_OVERRIDES += \
-  ro.crdroid.version=$(CM_VERSION) \
-  ro.modversion=$(CM_VERSION)
-
 ifeq ($(OTA_PACKAGE_SIGNING_KEY),)
     PRODUCT_EXTRA_RECOVERY_KEYS += \
-        vendor/cm/build/target/product/security/cm \
-        vendor/cm/build/target/product/security/cm-devkey
+    vendor/cm/build/target/product/security/cm \
+    vendor/cm/build/target/product/security/cm-devkey
 endif
-
-PRODUCT_PROPERTY_OVERRIDES += \
-  ro.crdroid.display.version=$(CM_DISPLAY_VERSION)
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
 -include vendor/cm/config/partner_gms.mk
 -include vendor/cyngn/product.mk
+include vendor/uos/config.mk
 
 $(call prepend-product-if-exists, vendor/extra/product.mk)
