@@ -128,16 +128,9 @@ PRODUCT_PACKAGES += \
 
 # Custom CM packages
 PRODUCT_PACKAGES += \
-    AudioFX \
-    CMFileManager \
     CMSettingsProvider \
-    CMWallpapers \
-    Eleven \
-    ExactCalculator \
-    Launcher3 \
     LiveLockScreenService \
     LockClock \
-    Screencast \
     SoundRecorder \
     WallpaperPicker \
     WeatherProvider
