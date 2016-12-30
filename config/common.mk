@@ -152,8 +152,8 @@ PRODUCT_PACKAGES += \
 
 # UCamera libs
 PRODUCT_COPY_FILES += \
-    vendor/uos/prebuilt/libs/libimageprocess_jni.so:system/lib/libimageprocess_jni.so \
-    vendor/uos/prebuilt/libs/libmosaic_jni.so:system/lib/libmosaic_jni.so 
+    vendor/cm/prebuilt/common/lib/libimageprocess_jni.so:system/lib/libimageprocess_jni.so \
+    vendor/cm/prebuilt/common/lib/libmosaic_jni.so:system/lib/libmosaic_jni.so 
 
 # Optional CM packages
 PRODUCT_PACKAGES += \
