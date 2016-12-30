@@ -146,7 +146,14 @@ PRODUCT_PACKAGES += \
     UFileExplorer \
     UMusic \
     UOSWallpaper \
+    UCalculator \
+    UCompass \
     UOSUpdater
+
+# UCamera libs
+PRODUCT_COPY_FILES += \
+    vendor/uos/prebuilt/libs/libimageprocess_jni.so:system/lib/libimageprocess_jni.so \
+    vendor/uos/prebuilt/libs/libmosaic_jni.so:system/lib/libmosaic_jni.so 
 
 # Optional CM packages
 PRODUCT_PACKAGES += \
