@@ -135,6 +135,7 @@ PRODUCT_PACKAGES += \
     BluetoothExt \
     CMAudioService \
     CMParts \
+    CMSettingsProvider \
     Development \
     Profiles \
     WeatherManagerService
@@ -284,7 +285,8 @@ UOS_VERSION := UOS-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_V
 PRODUCT_PROPERTY_OVERRIDES += \
   ro.uos.version=$(UOS_VERSION) \
   ro.modversion=$(UOS_VERSION) \
-  ro.cmlegal.url=https://uosbyuteam.com/legal/privacy-policy
+  ro.uos=1 \
+  ro.uoslegal.url=https://uosbyuteam.com/privacy-policy
 
 UOS_DISPLAY_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(CM_VERSION_MAINTENANCE)
 
