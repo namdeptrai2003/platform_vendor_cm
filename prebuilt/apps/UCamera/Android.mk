@@ -1,4 +1,4 @@
-# Copyright (C) 2016 The UOS Opensource Project
+# Copyright (C) 2017 The UOS Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,6 +23,25 @@ LOCAL_MODULE_CLASS := APPS
 LOCAL_MODULE_TAGS := optional
 LOCAL_CERTIFICATE := platform
 LOCAL_OVERRIDES_PACKAGES := Snap Camera2
-LOCAL_MULTILIB := both
+LOCAL_JNI_SHARED_LIBRARIES := libimageprocess_jni libmosaic_jni
+LOCAL_MULTILIB := 32
 
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE := libimageprocess_jni
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_SRC_FILES := armeabi/$(LOCAL_MODULE).so
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_ARM_MODE := arm
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE := libmosaic_jni
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_SRC_FILES := armeabi/$(LOCAL_MODULE).so
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_ARM_MODE := arm
 include $(BUILD_PREBUILT)
