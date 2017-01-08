@@ -1,15 +1,15 @@
 function __print_cm_functions_help() {
 cat <<EOF
-Additional CyanogenMod functions:
+Additional UOS functions:
 - cout:            Changes directory to out.
 - mmp:             Builds all of the modules in the current directory and pushes them to the device.
 - mmap:            Builds all of the modules in the current directory and its dependencies, then pushes the package to the device.
 - mmmp:            Builds all of the modules in the supplied directories and pushes them to the device.
 - mms:             Short circuit builder. Quickly re-build the kernel, rootfs, boot and system images
                    without deep dependencies. Requires the full build to have run before.
-- cmgerrit:        A Git wrapper that fetches/pushes patch from/to CM Gerrit Review.
-- cmrebase:        Rebase a Gerrit change and push it again.
-- cmremote:        Add git remote for CM Gerrit Review.
+- uosgerrit:       A Git wrapper that fetches/pushes patch from/to UOS Gerrit Code Review.
+- uosrebase:       Rebase a Gerrit change and push it again.
+- uosremote:       Add git remote for UOS Gerrit Review.
 - aospremote:      Add git remote for matching AOSP repository.
 - cafremote:       Add git remote for matching CodeAurora repository.
 - mka:             Builds using SCHED_BATCH on all processors.
@@ -59,11 +59,11 @@ function breakfast()
             # A buildtype was specified, assume a full device name
             lunch $target
         else
-            # This is probably just the CM model name
+            # This is probably just the UOS model name
             if [ -z "$variant" ]; then
                 variant="userdebug"
             fi
-            lunch cm_$target-$variant
+            lunch uos_$target-$variant
         fi
     fi
     return $?
@@ -74,8 +74,8 @@ alias bib=breakfast
 function eat()
 {
     if [ "$OUT" ] ; then
-        MODVERSION=$(get_build_var CM_VERSION)
-        ZIPFILE=cm-$MODVERSION.zip
+        MODVERSION=$(get_build_var UOS_VERSION)
+        ZIPFILE=UOS-$MODVERSION.zip
         ZIPPATH=$OUT/$ZIPFILE
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"
@@ -90,7 +90,7 @@ function eat()
             done
             echo "Device Found.."
         fi
-    if (adb shell getprop ro.cm.device | grep -q "$CM_BUILD");
+    if (adb shell getprop ro.uos.device | grep -q "$CM_BUILD");
     then
         # if adbd isn't root we can't write to /cache/recovery/
         adb root
@@ -231,23 +231,23 @@ function dddclient()
    fi
 }
 
-function cmremote()
+function uosremote()
 {
     if ! git rev-parse --git-dir &> /dev/null
     then
         echo ".git directory not found. Please run this from the root directory of the Android repository you wish to set up."
         return 1
     fi
-    git remote rm cmremote 2> /dev/null
+    git remote rm uosremote 2> /dev/null
     GERRIT_REMOTE=$(git config --get remote.github.projectname)
-    CMUSER=$(git config --get review.review.cyanogenmod.org.username)
-    if [ -z "$CMUSER" ]
+    UOSUSER=$(git config --get review.review.uosbyuteam.com.username)
+    if [ -z "$UOSUSER" ]
     then
-        git remote add cmremote ssh://review.cyanogenmod.org:29418/$GERRIT_REMOTE
+        git remote add cmremote ssh://review.uosbyuteam.com:29418/$GERRIT_REMOTE
     else
-        git remote add cmremote ssh://$CMUSER@review.cyanogenmod.org:29418/$GERRIT_REMOTE
+        git remote add cmremote ssh://$UOSUSER@review.uosbyuteam.com:29418/$GERRIT_REMOTE
     fi
-    echo "Remote 'cmremote' created"
+    echo "Remote 'uosremote' created"
 }
 
 function aospremote()
@@ -391,7 +391,7 @@ function makerecipe() {
     '
 }
 
-function cmgerrit() {
+function uosgerrit() {
     if [ "$(__detect_shell)" = "zsh" ]; then
         # zsh does not define FUNCNAME, derive from funcstack
         local FUNCNAME=$funcstack[1]
@@ -401,7 +401,7 @@ function cmgerrit() {
         $FUNCNAME help
         return 1
     fi
-    local user=`git config --get review.review.cyanogenmod.org.username`
+    local user=`git config --get review.review.uosbyuteam.com.username`
     local review=`git config --get remote.github.review`
     local project=`git config --get remote.github.projectname`
     local command=$1
@@ -437,7 +437,7 @@ EOF
             case $1 in
                 __cmg_*) echo "For internal use only." ;;
                 changes|for)
-                    if [ "$FUNCNAME" = "cmgerrit" ]; then
+                    if [ "$FUNCNAME" = "uosgerrit" ]; then
                         echo "'$FUNCNAME $1' is deprecated."
                     fi
                     ;;
@@ -530,7 +530,7 @@ EOF
                 $local_branch:refs/for/$remote_branch || return 1
             ;;
         changes|for)
-            if [ "$FUNCNAME" = "cmgerrit" ]; then
+            if [ "$FUNCNAME" = "uosgerrit" ]; then
                 echo >&2 "'$FUNCNAME $command' is deprecated."
             fi
             ;;
@@ -629,15 +629,15 @@ EOF
     esac
 }
 
-function cmrebase() {
+function uosrebase() {
     local repo=$1
     local refs=$2
     local pwd="$(pwd)"
     local dir="$(gettop)/$repo"
 
     if [ -z $repo ] || [ -z $refs ]; then
-        echo "CyanogenMod Gerrit Rebase Usage: "
-        echo "      cmrebase <path to project> <patch IDs on Gerrit>"
+        echo "UOS Gerrit Rebase Usage: "
+        echo "      uosrebase <path to project> <patch IDs on Gerrit>"
         echo "      The patch IDs appear on the Gerrit commands that are offered."
         echo "      They consist on a series of numbers and slashes, after the text"
         echo "      refs/changes. For example, the ID in the following command is 26/8126/2"
@@ -658,7 +658,7 @@ function cmrebase() {
     echo "Bringing it up to date..."
     repo sync .
     echo "Fetching change..."
-    git fetch "http://review.cyanogenmod.org/p/$repo" "refs/changes/$refs" && git cherry-pick FETCH_HEAD
+    git fetch "http://review.uosbyuteam.com/p/UOS-By-Uteam/$repo" "refs/changes/$refs" && git cherry-pick FETCH_HEAD
     if [ "$?" != "0" ]; then
         echo "Error cherry-picking. Not uploading!"
         return
