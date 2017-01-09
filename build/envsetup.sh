@@ -251,9 +251,9 @@ function uosremote()
     UOSUSER=$(git config --get review.review.uosbyuteam.com.username)
     if [ -z "$UOSUSER" ]
     then
-        git remote add cmremote ssh://review.uosbyuteam.com:29418/$GERRIT_REMOTE
+        git remote add uosremote ssh://review.uosbyuteam.com:29418/$GERRIT_REMOTE
     else
-        git remote add cmremote ssh://$UOSUSER@review.uosbyuteam.com:29418/$GERRIT_REMOTE
+        git remote add uosremote ssh://$UOSUSER@review.uosbyuteam.com:29418/$GERRIT_REMOTE
     fi
     echo "Remote 'uosremote' created"
 }
