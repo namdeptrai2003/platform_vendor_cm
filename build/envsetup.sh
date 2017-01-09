@@ -64,9 +64,11 @@ function breakfast()
                 variant="userdebug"
             fi
 
-            if ! check_product lineage_$target && check_product cm_$target; then
+            if ! check_product lineage_$target && check_product cm_$target && ! check_product uos_$target; then
                 echo "** Warning: '$target' is using CM-based makefiles. This will be deprecated in the next major release."
                 lunch cm_$target-$variant
+            elif ! check_product lineage_$target && ! check_product cm_$target && check_product uos_$target; then
+                lunch uos_$target-$variant
             else
                 lunch lineage_$target-$variant
             fi
