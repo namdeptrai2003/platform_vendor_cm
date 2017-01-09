@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+ifneq ($(TARGET_ARCH),x86)
 LOCAL_PATH:=$(call my-dir)
 
 include $(CLEAR_VARS)
@@ -34,7 +35,7 @@ LOCAL_MODULE := libimageprocess_jni
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_SRC_FILES := armeabi/$(LOCAL_MODULE).so
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
-LOCAL_ARM_MODE := arm
+LOCAL_ARM_MODE := armeabi
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -43,5 +44,6 @@ LOCAL_MODULE := libmosaic_jni
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_SRC_FILES := armeabi/$(LOCAL_MODULE).so
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
-LOCAL_ARM_MODE := arm
+LOCAL_ARM_MODE := armeabi
 include $(BUILD_PREBUILT)
+endif
