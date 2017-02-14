@@ -121,10 +121,6 @@ EOF
         echo "Nothing to eat"
         return 1
     fi
-    return $?
-    else
-        echo "The connected device does not appear to be $CM_BUILD, run away!"
-    fi
 }
 
 function omnom()
