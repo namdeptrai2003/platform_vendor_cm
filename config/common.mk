@@ -168,7 +168,7 @@ PRODUCT_PACKAGES += \
     Eleven \
     LiveLockScreenService \
     LockClock \
-    SoundRecorder \
+    Recorder \
     WallpaperPicker \
     WeatherProvider
 
