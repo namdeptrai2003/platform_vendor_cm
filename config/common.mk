@@ -164,11 +164,12 @@ PRODUCT_PACKAGES += \
 
 # Custom CM packages
 PRODUCT_PACKAGES += \
-    CyanogenSetupWizard \
+    AudioFX \
     Eleven \
     LiveLockScreenService \
     LockClock \
     Recorder \
+    SetupWizard \
     WallpaperPicker \
     WeatherProvider
 
