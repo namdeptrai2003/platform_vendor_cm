@@ -287,7 +287,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ro.modversion=$(UOS_VERSION) \
   ro.uos=1 \
   ro.uoslegal.url=https://uosbyuteam.com/privacy-policy
-
+PLATFORM_VERSION_CODENAME := OFFICIAL
 UOS_DISPLAY_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(shell date -u +%Y%m%d)
 
 PRODUCT_PROPERTY_OVERRIDES += \
